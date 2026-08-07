@@ -112,7 +112,7 @@ def local_css():
     </style>
     """, unsafe_allow_html=True)
 
-    # 2) Reglas
+    # 2) Reglas (sin interpolación → usa var(--x); las llaves son literales)
     st.markdown("""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap');
@@ -213,8 +213,8 @@ def local_css():
     [data-testid="stMetricLabel"] { color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.7rem; }
 
     /* ---------- Callouts / hints ---------- */
-    .hint { display: flex; gap: 0.65rem; align-items: flex-start; background: var(--tint-neutral); border: 1px solid var(--line); border-radius: var(--r-md); padding: 0.72rem 0.9rem; font-size: 0.85rem; color: var(--ink); line-height: 1.55; margin: 0.25rem 0 0.75rem; }
-    .hint::before { content: ""; width: 6px; height: 6px; border-radius: 999px; background: var(--espresso); margin-top: 0.5rem; flex: 0 0 auto; }
+    .hint { display: block; position: relative; background: var(--tint-neutral); border: 1px solid var(--line); border-radius: var(--r-md); padding: 0.72rem 0.9rem 0.72rem 1.7rem; font-size: 0.85rem; color: var(--ink); line-height: 1.55; margin: 0.25rem 0 0.75rem; }
+    .hint::before { content: ""; position: absolute; left: 0.9rem; top: 0.82rem; width: 6px; height: 6px; border-radius: 999px; background: var(--espresso); }
     .hint code { background: #ECE8E1; border-radius: 5px; padding: 0.05rem 0.35rem; font-family: var(--font-mono); font-size: 0.82em; }
     .hint-warn { background: var(--tint-cheese); border-color: #EEDFC2; }
     .hint-warn::before { background: var(--cheese); }
@@ -249,7 +249,7 @@ def local_css():
     </style>
     """, unsafe_allow_html=True)
 
-    # 3) Capa animaciones, hero, iconos y profundidad
+    # 3) Capa "con vida": animaciones, hero, iconos y profundidad
     st.markdown("""
     <style>
     /* ===== Motion + profundidad ===== */
@@ -1053,7 +1053,7 @@ def main():
     if not data.ingredientes_desconocidos.empty:
         with st.expander("Ingredientes desconocidos en órdenes", expanded=True):
             st.dataframe(data.ingredientes_desconocidos, use_container_width=True)
-            hint("Revisa si el nombre del ingrediente está mal escrito o si es un insumo nuevo. Si es nuevo, regístralo en <code>ingredientes.csv</code> con su factor de conversión para que el sistema pueda calcular su proyección y alertas.", tone="warn")
+            hint("Revisa si el nombre del ingrediente está mal escrito o si es un insumo nuevo. Si es nuevo, agrégalo al archivo maestro <code>ingredientes.csv</code> con su factor de conversión para que el sistema pueda calcular su proyección y sus alertas.", tone="warn")
 
     if 'df_alertas' not in st.session_state:
         st.session_state['df_alertas'] = obtener_alertas(data)
