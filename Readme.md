@@ -10,7 +10,7 @@ Dashboard que **revisa automáticamente las órdenes de compra semanales** de la
 
 Está construido con **Streamlit** e incluye proyección de demanda, un motor de alertas, detección de anomalías entre sucursales, un chat con IA conectado a los datos reales, el pedido corregido agrupado por proveedor, carga de órdenes desde archivo y un historial que compara semana contra semana.
 
-**Demo en vivo:** _(pegar acá el link de Streamlit Cloud una vez desplegado)_
+**Demo en vivo:** [Abrir el dashboard](https://dashboard-barrio-pizza-v1-dstdmmfstzbkkhguy6nj9n.streamlit.app/)
 
 ---
 
