@@ -92,9 +92,9 @@ Además cada alerta lleva un **score de prioridad** para que la gerente vea prim
 
 > *ALERTA: Costa del Este está pidiendo 12.0 kg de mozzarella menos que lo proyectado → riesgo de quiebre.*
 
-### 4. Detección de anomalías entre sucursales (`anomaly.py)
+### 4. Detección de anomalías entre sucursales (`anomaly.py`)
 
-Comparar consumo crudo entre sucursales es injusto proque una sucursal más grande consume más de todo. Por eso opte por normalización por `cajas_pizza` (proxy del volumen de venta) y comparo la **ratio** `consumo / cajas` —lo que me permite detectar si una sucursal usa más queso *por pizza* que el resto, que es la señal real de "algo raro", no solo de que vende más.
+Comparar consumo crudo entre sucursales es injusto porque una sucursal más grande consume más de todo. Por eso opte por normalización por `cajas_pizza` (proxy del volumen de venta) y comparo la **ratio** `consumo / cajas` —lo que me permite detectar si una sucursal usa más queso *por pizza* que el resto, que es la señal real de "algo raro", no solo de que vende más.
 
 Con solo 4 sucursales evité z-scores clásicos (poca muestra) y comparo cada sucursal contra la **mediana de las otras** que es más robusta. Hay dos visiones complementarias:
 
@@ -107,7 +107,7 @@ Las órdenes reales traen ingredientes que no existen en el maestro (errores de 
 
 ### 6. Chat con los datos (`chat_engine.py`)
 
-Un cuadro donde la gerente escribe en español y recibe la respuesta en texto. Por dentro usa **Groq** (endpoint compatible con OpenAI) con **tool calling** donde el modelo como tal no ve las tablas crudas, sino que llama a herramientas que corren sobre los DataFrames ya calculados y le devuelven **cifras reales**. Así nunca inventa números  y si necesita un dato tiene que consultarlo.
+Un cuadro donde la gerente escribe en español y recibe la respuesta en texto. Por dentro usa **Groq** (endpoint compatible con OpenAI) con **tool calling** donde el modelo como tal no ve las tablas crudas, sino que llama a herramientas que corren sobre los DataFrames ya calculados y le devuelven **cifras reales**. Así nunca inventa números y si necesita un dato tiene que consultarlo.
 
 Las seis herramientas usadas son: buscar alertas (con filtros), resumen general, historial de consumo, anomalías entre sucursales, pedido por proveedor y problemas de calidad de datos.
 
@@ -141,6 +141,8 @@ Dashboard Barrio Pizza V1/
 │   ├── insights.py             # Pedido corregido y texto por proveedor
 │   ├── chat_engine.py          # Chat con IA vía tool calling
 │   └── history.py              # Historial de alertas y comparación entre semanas
+├── .streamlit/
+│   └── config.toml             # Fuerza el tema claro (colores de marca)
 ├── .env.example                # Plantilla de variables de entorno
 ├── .gitignore
 └── requirements.txt
@@ -199,4 +201,4 @@ Hoy la fuente son CSV pero el diseño está pensado para enchufarse a un ERP. En
 - **Notificaciones automáticas** email/Slack cuando aparecen alertas críticas.
 - **Vistas por rol** cada encargado ve su sucursal; la gerente ve todo.
 
-## Proyecto Realizado por: Gonzalo Hooker 
+## Proyecto Realizado por: Gonzalo Hooker
